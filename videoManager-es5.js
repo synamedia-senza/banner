@@ -58,7 +58,7 @@ function moveToBackground() {
   hs.remotePlayer.play();
 }
 
-function  toggleBackground() {
+function toggleBackground() {
   hs.lifecycle.getState().then(function(currentState) {
     if (currentState == "background" || currentState == "inTransitionToBackground") {
       hs.lifecycle.moveToForeground();
