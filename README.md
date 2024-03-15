@@ -2,9 +2,9 @@
 
 Play video with an advertising banner, and switch between the local and remote players.
 
-## Changes
+## Compatibility
 
-This version is compatible with ES54 and does not use ES6 features:
+This version is compatible with ES5 and does not use ES6 features:
 
 * no classes
 * loads scripts from CDN instead of importing modules
