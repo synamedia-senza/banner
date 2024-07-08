@@ -3,15 +3,15 @@ var localPlayer;
 function initVideo(player) {
   localPlayer = player;
   
-  hs.remotePlayer.addEventListener("timeupdate", function() {
-    localPlayer.getMediaElement().currentTime = hs.remotePlayer.currentTime || 0;
+  senza.remotePlayer.addEventListener("timeupdate", function() {
+    localPlayer.getMediaElement().currentTime = senza.remotePlayer.currentTime || 0;
   });
 
-  hs.remotePlayer.addEventListener("ended", function() {
-    hs.lifecycle.moveToForeground();
+  senza.remotePlayer.addEventListener("ended", function() {
+    senza.lifecycle.moveToForeground();
   });
 
-  hs.lifecycle.addEventListener("onstatechange", function(event) {
+  senza.lifecycle.addEventListener("onstatechange", function(event) {
     if (event.state === "background") {
       pauseVideo();
     } else if (event.state === "foreground") {
@@ -22,7 +22,7 @@ function initVideo(player) {
 
 function loadVideo(url) {
   return localPlayer.load(url).then(function() {
-    return hs.remotePlayer.load(url);
+    return senza.remotePlayer.load(url);
   });
 }
 
@@ -49,19 +49,19 @@ function skip(seconds) {
 }
 
 function moveToForeground() {
-  hs.lifecycle.moveToForeground();
+  senza.lifecycle.moveToForeground();
 }
 
 function moveToBackground() {
   var currentTime = localPlayer.getMediaElement().currentTime;
-  hs.remotePlayer.currentTime = currentTime;
-  hs.remotePlayer.play();
+  senza.remotePlayer.currentTime = currentTime;
+  senza.remotePlayer.play();
 }
 
 function toggleBackground() {
-  hs.lifecycle.getState().then(function(currentState) {
+  senza.lifecycle.getState().then(function(currentState) {
     if (currentState == "background" || currentState == "inTransitionToBackground") {
-      hs.lifecycle.moveToForeground();
+      senza.lifecycle.moveToForeground();
     } else {
       moveToBackground();
     }

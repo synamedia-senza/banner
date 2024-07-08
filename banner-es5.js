@@ -2,11 +2,11 @@ const TEST_VIDEO = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
 
 window.addEventListener("load", function() {
   try {
-    hs.init().then(function() {
+    senza.init().then(function() {
       initVideo(new shaka.Player(document.getElementById("video")));
       loadVideo(TEST_VIDEO).then(function () {
         playVideo();
-        hs.uiReady();
+        senza.uiReady();
       });
     });
   } catch (error) {
