@@ -1,14 +1,5 @@
 # Banner ES5
 
-Play video with an advertising banner, and switch between the local and remote players.
+This app demonstrates how to play video using the Senza version of the Shaka player, which automatically handles integration with the remote player.
 
-## Compatibility
-
-This version is compatible with ES5 and does not use ES6 features:
-
-* no classes
-* loads scripts from CDN instead of importing modules
-* var instead of let
-* function() instead of () => {}
-* .then() instead of async/await
-* no webpack
+This version of the Banner app imports the Senza SDK using a script tag, rather than using NPM and webpack.
