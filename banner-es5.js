@@ -29,9 +29,6 @@ async function toggleBackground() {
   if (senza.lifecycle.state == senza.lifecycle.UiState.BACKGROUND) {
     await senza.lifecycle.moveToForeground();
   } else {
-    // This is currently required to sync the players before switching.
-    // It will no longer be necessary in an upcoming version of the SDK.
-    player.remotePlayer.currentTime = video.currentTime;
     await senza.lifecycle.moveToBackground();
   }
 }
