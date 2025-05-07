@@ -6,9 +6,14 @@ window.addEventListener("load", async () => {
   try {
     await senza.init();
     player = new senza.ShakaPlayer();
+    player.configure(playerConfig());
     player.attach(video);
     await player.load(url);
     await video.play();
+
+    senza.lifecycle.autoBackground = true;
+    senza.lifecycle.autoBackgroundDelay = 15;
+
     senza.uiReady();
   } catch (error) {
     console.error(error);
@@ -46,4 +51,8 @@ async function playPause() {
 
 function skip(seconds) {
   video.currentTime = video.currentTime + seconds;
+}
+
+function playerConfig() {
+  return {abr: {restrictions: {maxHeight: 1080}}};
 }
