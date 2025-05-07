@@ -1,12 +1,13 @@
-const TEST_VIDEO = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
+const url = "https://dash.akamaized.net/akamai/bbb_30fps/bbb_30fps.mpd";
 
 let player;
 
 window.addEventListener("load", async () => {
   try {
     await senza.init();
-    player = new senza.ShakaPlayer(video);
-    await player.load(TEST_VIDEO);
+    player = new senza.ShakaPlayer();
+    player.attach(video);
+    await player.load(url);
     await video.play();
     senza.uiReady();
   } catch (error) {
@@ -18,6 +19,8 @@ document.addEventListener("keydown", async function (event) {
   switch (event.key) {
     case "Enter": await toggleBackground(); break;
     case "Escape": await playPause(); break;
+    case "ArrowUp": break;
+    case "ArrowDown": break;
     case "ArrowLeft": skip(-30); break;
     case "ArrowRight": skip(30); break;
     default: return;
