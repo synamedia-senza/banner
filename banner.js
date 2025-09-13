@@ -11,8 +11,7 @@ window.addEventListener("load", async () => {
     await player.load(url);
     await video.play();
 
-    senza.lifecycle.autoBackground = true;
-    senza.lifecycle.autoBackgroundDelay = 15;
+    senza.lifecycle.configure(lifecycleConfig());
 
     senza.uiReady();
   } catch (error) {
@@ -51,6 +50,13 @@ async function playPause() {
 
 function skip(seconds) {
   video.currentTime = video.currentTime + seconds;
+}
+
+function lifecycleConfig() {
+  return {autoBackground: {
+    enabled: true,
+    timeout: {playing: 15, idle: 15}
+  }};
 }
 
 function playerConfig() {
