@@ -5,13 +5,17 @@ let player;
 window.addEventListener("load", async () => {
   try {
     await senza.init();
+
     player = new senza.ShakaPlayer();
     player.configure(playerConfig());
     player.attach(video);
     await player.load(url);
     await video.play();
 
-    senza.lifecycle.configure(lifecycleConfig());
+    senza.lifecycle.configure({
+      autoBackground: {enabled: false, timeout: {playing: 15, idle: 15}},
+      autoSuspend: {enabled: false, timeout: {playing: 30, idle: 30 }},
+    });
 
     senza.uiReady();
   } catch (error) {
@@ -25,8 +29,8 @@ document.addEventListener("keydown", async function (event) {
     case "Escape": await playPause(); break;
     case "ArrowUp": break;
     case "ArrowDown": break;
-    case "ArrowLeft": skip(-30); break;
-    case "ArrowRight": skip(30); break;
+    case "ArrowLeft": await skip(-30); break;
+    case "ArrowRight": await skip(30); break;
     default: return;
   }
   event.preventDefault();
@@ -48,15 +52,15 @@ async function playPause() {
   }
 }
 
-function skip(seconds) {
+async function skip(seconds) {
+  await moveToForegroundIfNeeded();
   video.currentTime = video.currentTime + seconds;
 }
 
-function lifecycleConfig() {
-  return {autoBackground: {
-    enabled: true,
-    timeout: {playing: 15, idle: 15}
-  }};
+async function moveToForegroundIfNeeded() {
+  if (senza.lifecycle.state == senza.lifecycle.UiState.BACKGROUND) {
+    await senza.lifecycle.moveToForeground();
+  }
 }
 
 function playerConfig() {
